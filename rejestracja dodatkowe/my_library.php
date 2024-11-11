@@ -10,10 +10,7 @@ if (!isset($_COOKIE['user_id'])) {
 $userId = $_COOKIE['user_id'];
 
 // ciagne gry 
-$stmt = $pdo->prepare("SELECT g.name 
-                        FROM game_library gl 
-                        JOIN games g ON gl.game_id = g.id 
-                        WHERE gl.user_id IN (SELECT id FROM users WHERE login = ?)");
+$stmt = $pdo->prepare("SELECT g.name FROM game_library gl JOIN games g ON gl.game_id = g.id WHERE gl.user_id IN (SELECT id FROM users WHERE login = ?)");
 $stmt->execute([$userId]);
 $games = $stmt->fetchAll();
 ?>
