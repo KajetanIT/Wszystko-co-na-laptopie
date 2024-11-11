@@ -1,7 +1,7 @@
 <?php
 include 'conn.php';
 
-// Sprawdź, czy użytkownik jest zalogowany
+// czy jest zalgoowany 
 if (!isset($_COOKIE['user_id'])) {
     header("Location: login.php");
     exit();
@@ -9,16 +9,16 @@ if (!isset($_COOKIE['user_id'])) {
 
 $userId = $_COOKIE['user_id'];
 
-// Dodaj grę do biblioteki, jeśli formularz został wysłany
+// dodawnie gry jesli formularz jest git wyslany
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['game_id'])) {
     $gameId = $_POST['game_id'];
 
-    // Sprawdź, czy gra już istnieje w bibliotece
+    // jakie gry sa tam
     $stmt = $pdo->prepare("SELECT * FROM game_library WHERE user_id IN (SELECT id FROM users WHERE login = ?) AND game_id = ?");
     $stmt->execute([$userId, $gameId]);
     
     if ($stmt->rowCount() == 0) {
-        // Dodaj grę do biblioteki
+        // dodawanie gry do biblio
         $stmt = $pdo->prepare("INSERT INTO game_library (user_id, game_id) VALUES ((SELECT id FROM users WHERE login = ? LIMIT 1), ?)");
         if ($stmt->execute([$userId, $gameId])) {
             echo "Gra została dodana do Twojej biblioteki!";
@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['game_id'])) {
     }
 }
 
-// Pobierz dostępne gry
+// jakie gry sa dostepne
 $stmt = $pdo->query("SELECT * FROM games");
 $games = $stmt->fetchAll();
 ?>
