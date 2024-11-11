@@ -1,7 +1,7 @@
 <?php
 include 'conn.php';
 
-// Sprawdź, czy użytkownik jest zalogowany
+// czy jestem zalogowany
 if (!isset($_COOKIE['user_id'])) {
     header("Location: login.php");
     exit();
@@ -9,7 +9,7 @@ if (!isset($_COOKIE['user_id'])) {
 
 $userId = $_COOKIE['user_id'];
 
-// Pobierz gry użytkownika z biblioteki
+// ciagne gry 
 $stmt = $pdo->prepare("SELECT g.name 
                         FROM game_library gl 
                         JOIN games g ON gl.game_id = g.id 
