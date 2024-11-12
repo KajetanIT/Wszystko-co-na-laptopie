@@ -20,3 +20,6 @@ CREATE TABLE `game_library` (
   FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE,
   FOREIGN KEY (`game_id`) REFERENCES `games`(`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+http://localhost/rejestracja/
+
